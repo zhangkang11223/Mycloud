@@ -12,5 +12,5 @@ eureka:
     # 单节点无所谓，集群必须设置为true才能配置ribbion使用负载均衡
     fetchRegistry: true # 是否从Eurekaserver抓取已有的注册信息，默认为true。
     service-url:
-     #defaultZone: http://localhost:7001/eureka #单机版
+      #defaultZone: http://localhost:7001/eureka #单机版
       defaultZone: http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka #集群版需要配置每个EurekaServer

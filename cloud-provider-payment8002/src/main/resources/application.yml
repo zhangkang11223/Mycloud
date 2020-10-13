@@ -19,9 +19,11 @@ eureka:
     # 单节点无所谓，集群必须设置为true才能配置ribbion使用负载均衡
     fetchRegistry: true
     service-url: # 注册地址：主机名称:端口名称/eureka
-     #defaultZone: http://localhost:7001/eureka  #单机版
+      #defaultZone: http://localhost:7001/eureka  #单机版
       defaultZone: http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka #集群版需要配置每个EurekaServer
-
+  instance:
+    instance-id: payment8002        #实例名称:可以自定义
+    prefer-ip-address: true         #访问路径可以显示ip,悬停可在页面左下角看到路径中的IP
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   type-aliases-package: com.atzhangkang.springcloud.entities
