@@ -60,6 +60,11 @@ public class PaymentController {
             }
             Map<String, List<ServiceInstance>> map =
                 serviceInstances.stream().collect(Collectors.groupingBy(ServiceInstance::getServiceId));
-        return new CommonResult(200,"get instances success", map.toString());
+        return new CommonResult<>(200,"get instances success", map);
+    }
+
+    @GetMapping(value = "/payment/getCurrentPort")
+    public CommonResult<String> getCurrentPort() {
+        return new CommonResult<>(200, "get current port success!", serverPort);
     }
 }
