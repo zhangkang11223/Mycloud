@@ -1,0 +1,6 @@
+server:
+  port: 9999  #一个简单测试
+
+spring:
+  application:
+    name: cloud-simpletest-service
