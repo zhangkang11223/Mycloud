@@ -4,3 +4,17 @@ server:
 spring:
   application:
     name: cloud-simpletest-service
+
+logging:
+  pattern:
+    # 设置输出格式
+    console: '%d -%msg%n'
+
+  file:
+    # 设置日志文件大小
+    max-size: 10MB
+    # 再根目录下的logs/simpletest-server9999路径下,日志文件名为：spring.log
+    path: logs/simpletest-server9999
+  level:
+    #TARCE < DEBUG < INFO < WARN < ERROR < FATAL，只能展示大于或等于设置的日志级别的日志
+    root: info

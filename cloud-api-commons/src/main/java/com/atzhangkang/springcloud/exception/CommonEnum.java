@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.entities.exception;
+package com.atzhangkang.springcloud.exception;
 
 import lombok.Getter;
 

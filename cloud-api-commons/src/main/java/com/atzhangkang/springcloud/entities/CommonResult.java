@@ -1,7 +1,7 @@
 package com.atzhangkang.springcloud.entities;
 
-import com.atzhangkang.springcloud.entities.exception.BaseErrorInfoInterface;
-import com.atzhangkang.springcloud.entities.exception.CommonEnum;
+import com.atzhangkang.springcloud.exception.BaseErrorInfoInterface;
+import com.atzhangkang.springcloud.exception.CommonEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
