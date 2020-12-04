@@ -1,0 +1,20 @@
+server:
+  port: 6699  #一个spring测试
+
+spring:
+  application:
+    name: cloud-spring-test6699
+
+logging:
+  pattern:
+    # 设置输出格式
+    console: '%d -%msg%n'
+
+  file:
+    # 设置日志文件大小
+    max-size: 10MB
+    # 再根目录下的logs/spring-test6699路径下,日志文件名为：spring.log
+    path: logs/spring-test6699
+  level:
+    #TARCE < DEBUG < INFO < WARN < ERROR < FATAL，只能展示大于或等于设置的日志级别的日志
+    root: info

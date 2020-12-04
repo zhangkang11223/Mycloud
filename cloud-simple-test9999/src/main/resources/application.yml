@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: cloud-simpletest-service
+    name: cloud-simple-test9999
 
 logging:
   pattern:
@@ -18,3 +18,7 @@ logging:
   level:
     #TARCE < DEBUG < INFO < WARN < ERROR < FATAL，只能展示大于或等于设置的日志级别的日志
     root: info
+
+timed:
+  task:
+    open: false
