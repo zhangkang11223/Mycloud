@@ -8,7 +8,7 @@ import java.util.Date;
  * 定时删除任务，默认删除
  * @author tule
  * @version 1.0
- * @date 2020/12/3 15:33
+ * @date 2020/12/3
  */
 public class DeleteFilesUtils {
     public static Integer moveFileToReady(String fromDir,int howMinites ) {

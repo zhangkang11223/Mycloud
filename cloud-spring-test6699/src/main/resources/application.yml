@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: cloud-spring-test6699
+  #切面启用
+  aop:
+    proxy-target-class: true
+    auto: true
 
 logging:
   pattern:
