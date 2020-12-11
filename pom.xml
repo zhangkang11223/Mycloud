@@ -19,6 +19,7 @@
       <module>cloud-provider-payment8002</module>
       <module>cloud-simple-test9999</module>
       <module>cloud-spring-test6699</module>
+      <module>cloud-xxl-job</module>
   </modules>
 
   <!--统一管理jar包版本-->
