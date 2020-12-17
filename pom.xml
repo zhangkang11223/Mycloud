@@ -20,6 +20,7 @@
       <module>cloud-simple-test9999</module>
       <module>cloud-spring-test6699</module>
       <module>cloud-xxl-job</module>
+      <module>cloud-rabbitmq-service6001</module>
   </modules>
 
   <!--统一管理jar包版本-->
