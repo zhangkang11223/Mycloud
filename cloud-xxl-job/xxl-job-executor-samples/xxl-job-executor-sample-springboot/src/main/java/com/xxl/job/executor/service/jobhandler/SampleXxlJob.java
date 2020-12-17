@@ -12,7 +12,10 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,12 +39,16 @@ public class SampleXxlJob {
      */
     @XxlJob("demoJobHandler")
     public void demoJobHandler() throws Exception {
+        var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "============start=============");
         XxlJobHelper.log("XXL-JOB, Hello World.");
 
         for (int i = 0; i < 5; i++) {
             XxlJobHelper.log("beat at:" + i);
             TimeUnit.SECONDS.sleep(2);
         }
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "============end=============");
+
         // default success
     }
 

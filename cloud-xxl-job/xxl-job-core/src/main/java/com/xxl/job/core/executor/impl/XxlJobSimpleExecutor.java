@@ -7,8 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -31,7 +34,8 @@ public class XxlJobSimpleExecutor extends XxlJobExecutor {
 
 
     public void start() {
-
+        var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========XxlJobSimpleExecutor.start  start ===========");
         // init JobHandler Repository (for method)
         initJobHandlerMethodRepository(xxlJobBeanList);
 

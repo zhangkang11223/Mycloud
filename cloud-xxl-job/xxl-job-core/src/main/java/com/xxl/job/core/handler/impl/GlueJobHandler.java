@@ -3,6 +3,10 @@ package com.xxl.job.core.handler.impl;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.IJobHandler;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 /**
  * glue job handler
  *
@@ -23,7 +27,12 @@ public class GlueJobHandler extends IJobHandler {
 	@Override
 	public void execute() throws Exception {
 		XxlJobHelper.log("----------- glue.version:"+ glueUpdatetime +" -----------");
+		var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+		System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============GlueJobHandler  start ===========");
+
 		jobHandler.execute();
+
+		System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============GlueJobHandler  start ===========");
 	}
 
 }

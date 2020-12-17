@@ -16,7 +16,10 @@ import com.xxl.job.core.util.ThrowableUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * xxl-job trigger
@@ -109,7 +112,8 @@ public class XxlJobTrigger {
      * @param total                     sharding index
      */
     private static void processTrigger(XxlJobGroup group, XxlJobInfo jobInfo, int finalFailRetryCount, TriggerTypeEnum triggerType, int index, int total){
-
+        var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========processTrigger  start ===========");
         // param
         ExecutorBlockStrategyEnum blockStrategy = ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), ExecutorBlockStrategyEnum.SERIAL_EXECUTION);  // block strategy
         ExecutorRouteStrategyEnum executorRouteStrategyEnum = ExecutorRouteStrategyEnum.match(jobInfo.getExecutorRouteStrategy(), null);    // route strategy
@@ -208,6 +212,8 @@ public class XxlJobTrigger {
         ReturnT<String> runResult = null;
         try {
             ExecutorBiz executorBiz = XxlJobScheduler.getExecutorBiz(address);
+            var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+            System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========runExecutor  start ===========");
             runResult = executorBiz.run(triggerParam);
         } catch (Exception e) {
             logger.error(">>>>>>>>>>> xxl-job trigger error, please check if the executor[{}] is running.", address, e);

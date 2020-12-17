@@ -3,6 +3,10 @@ package com.xxl.job.core.handler.impl;
 import com.xxl.job.core.handler.IJobHandler;
 
 import java.lang.reflect.Method;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * @author xuxueli 2019-12-11 21:12:18
@@ -24,7 +28,12 @@ public class MethodJobHandler extends IJobHandler {
 
     @Override
     public void execute() throws Exception {
+
+        var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============execute  start ===========");
         method.invoke(target);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============execute   end  ===========");
+
     }
 
     @Override

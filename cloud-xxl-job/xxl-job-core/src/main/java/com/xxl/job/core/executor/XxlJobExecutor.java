@@ -13,8 +13,11 @@ import com.xxl.job.core.util.NetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -63,7 +66,8 @@ public class XxlJobExecutor  {
 
     // ---------------------- start + stop ----------------------
     public void start() throws Exception {
-
+        var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========XxlJobExecutor.start  start ===========");
         // init logpath
         XxlJobFileAppender.initLogPath(logPath);
 
@@ -79,6 +83,7 @@ public class XxlJobExecutor  {
 
         // init executor-server
         initEmbedServer(address, ip, port, appname, accessToken);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========XxlJobExecutor.start  end ===========");
     }
     public void destroy(){
         // destory executor-server
@@ -136,6 +141,8 @@ public class XxlJobExecutor  {
     private EmbedServer embedServer = null;
 
     private void initEmbedServer(String address, String ip, int port, String appname, String accessToken) throws Exception {
+        var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========XxlJobExecutor.initEmbedServer  start ===========");
 
         // fill ip port
         port = port>0?port: NetUtil.findAvailablePort(9999);
@@ -155,6 +162,7 @@ public class XxlJobExecutor  {
         // start
         embedServer = new EmbedServer();
         embedServer.start(address, port, appname, accessToken);
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========XxlJobExecutor.initEmbedServer  end ===========");
     }
 
     private void stopEmbedServer() {
@@ -183,9 +191,10 @@ public class XxlJobExecutor  {
     public static JobThread registJobThread(int jobId, IJobHandler handler, String removeOldReason){
         JobThread newJobThread = new JobThread(jobId, handler);
         newJobThread.start();
-        logger.info(">>>>>>>>>>> xxl-job regist JobThread success, jobId:{}, handler:{}", new Object[]{jobId, handler});
+        logger.info("zk 0 >>>>>>>>>>> xxl-job regist JobThread success, jobId:{}, handler:{}, Thrad name : {}", new Object[]{jobId, handler,newJobThread.getName()});
 
         JobThread oldJobThread = jobThreadRepository.put(jobId, newJobThread);	// putIfAbsent | oh my god, map's put method return the old value!!!
+        //如果老的线程已存在，杀掉老的线程
         if (oldJobThread != null) {
             oldJobThread.toStop(removeOldReason);
             oldJobThread.interrupt();

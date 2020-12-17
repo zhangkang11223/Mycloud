@@ -20,6 +20,9 @@ import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.concurrent.*;
 
 /**
@@ -34,11 +37,13 @@ public class EmbedServer {
     private Thread thread;
 
     public void start(final String address, final int port, final String appname, final String accessToken) {
+        var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
         executorBiz = new ExecutorBizImpl();
         thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
+                System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========build bizThreadPool start ===========");
 
                 // param
                 EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -75,7 +80,7 @@ public class EmbedServer {
                                             .addLast(new IdleStateHandler(0, 0, 30 * 3, TimeUnit.SECONDS))  // beat 3N, close if idle
                                             .addLast(new HttpServerCodec())
                                             .addLast(new HttpObjectAggregator(5 * 1024 * 1024))  // merge request & reponse to FULL
-                                            .addLast(new EmbedHttpServerHandler(executorBiz, accessToken, bizThreadPool));
+                                            .addLast(new EmbedHttpServerHandler(executorBiz, accessToken, bizThreadPool));//添加自定义的ChannelHandler
                                 }
                             })
                             .childOption(ChannelOption.SO_KEEPALIVE, true);
@@ -111,7 +116,9 @@ public class EmbedServer {
 
         });
         thread.setDaemon(true);	// daemon, service jvm, user thread leave >>> daemon leave >>> jvm leave
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========EmbedServer.start  start ===========");
         thread.start();
+        System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========EmbedServer.start  end ===========");
     }
 
     public void stop() throws Exception {
@@ -149,7 +156,8 @@ public class EmbedServer {
 
         @Override
         protected void channelRead0(final ChannelHandlerContext ctx, FullHttpRequest msg) throws Exception {
-
+            var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+            System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========channelRead0 start ===========");
             // request parse
             //final byte[] requestBytes = ByteBufUtil.getBytes(msg.content());    // byteBuf.toString(io.netty.util.CharsetUtil.UTF_8);
             String requestData = msg.content().toString(CharsetUtil.UTF_8);
@@ -157,11 +165,14 @@ public class EmbedServer {
             HttpMethod httpMethod = msg.method();
             boolean keepAlive = HttpUtil.isKeepAlive(msg);
             String accessTokenReq = msg.headers().get(XxlJobRemotingUtil.XXL_JOB_ACCESS_TOKEN);
-
+            System.out.println("=========bizThreadPool.getCompletedTaskCount() : " + bizThreadPool.getCompletedTaskCount());
             // invoke
             bizThreadPool.execute(new Runnable() {
+
                 @Override
                 public void run() {
+                    var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+                    System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========bizThreadPool.execute run  start ===========");
                     // do invoke
                     Object responseObj = process(httpMethod, uri, requestData, accessTokenReq);
 
@@ -190,6 +201,8 @@ public class EmbedServer {
             }
 
             // services mapping
+            var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+            System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========services mapping  start ===========");
             try {
                 if ("/beat".equals(uri)) {
                     return executorBiz.beat();

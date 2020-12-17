@@ -13,10 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.concurrent.*;
 
 
@@ -92,10 +91,12 @@ public class JobThread extends Thread{
 
     @Override
 	public void run() {
-
+		var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
     	// init
     	try {
+			System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============handler.init  start ===========");
 			handler.init();
+			System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============handler.init  end ===========");
 		} catch (Throwable e) {
     		logger.error(e.getMessage(), e);
 		}
@@ -139,8 +140,10 @@ public class JobThread extends Thread{
 
 									// init job context
 									XxlJobContext.setXxlJobContext(xxlJobContext);
-
+									var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+									System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============call start ===========");
 									handler.execute();
+									System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============call end ===========");
 									return true;
 								}
 							});
@@ -160,7 +163,9 @@ public class JobThread extends Thread{
 						}
 					} else {
 						// just execute
+						System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============run  start ===========");
 						handler.execute();
+						System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============run  end ===========");
 					}
 
 					// valid execute handle data
@@ -222,7 +227,7 @@ public class JobThread extends Thread{
                 }
             }
         }
-
+		System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============break stop ===========");
 		// callback trigger request in queue
 		while(triggerQueue !=null && triggerQueue.size()>0){
 			TriggerParam triggerParam = triggerQueue.poll();

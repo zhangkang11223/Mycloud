@@ -7,7 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -49,6 +52,8 @@ public class FrameLessXxlJobConfig {
 
         // start executor
         try {
+            var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+            System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========FrameLessXxlJobConfig.initXxlJobExecutor  start ===========");
             xxlJobExecutor.start();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

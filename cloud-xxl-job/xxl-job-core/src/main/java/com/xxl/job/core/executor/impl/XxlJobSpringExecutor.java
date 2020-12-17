@@ -15,6 +15,9 @@ import org.springframework.core.MethodIntrospector;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 
 import java.lang.reflect.Method;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -42,6 +45,8 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
 
         // super start
         try {
+            var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+            System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=========XxlJobSpringExecutor.afterSingletonsInstantiated  start ===========");
             super.start();
         } catch (Exception e) {
             throw new RuntimeException(e);

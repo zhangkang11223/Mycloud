@@ -10,8 +10,11 @@ import com.xxl.job.core.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.*;
 
 /**
@@ -50,7 +53,13 @@ public class JobCompleteHelper {
 				new RejectedExecutionHandler() {
 					@Override
 					public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+						var zhFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EE HH:mm:ss", Locale.CHINA);
+						System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============rejectedExecution  start ===========");
+
+
 						r.run();
+						System.out.println(zhFormatter.format(ZonedDateTime.now()) + Thread.currentThread().getName() + "=============rejectedExecution  end ===========");
+
 						logger.warn(">>>>>>>>>>> xxl-job, callback too fast, match threadpool rejected handler(run now).");
 					}
 				});
