@@ -7,13 +7,17 @@ import com.rabbitmq.client.Connection;
 import java.io.IOException;
 
 /**
+ * Workqueue中的consumers是轮循获取消息队列中的消息
  * @author tule
  * @version 1.0
  * @date 2020/12/21
  */
 public class ProducerOfWorkQueues {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         Connection connection = RabbaitMqUtil.getConnection();
+        if (connection == null) {
+            throw new Exception("failed to get rabbitmq connection");
+        }
         // 获取通道对象
         Channel channel = connection.createChannel();
         // 声明队列
