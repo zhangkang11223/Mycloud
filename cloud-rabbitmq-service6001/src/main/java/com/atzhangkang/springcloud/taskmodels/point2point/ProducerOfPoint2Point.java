@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.models.point2point;
+package com.atzhangkang.springcloud.taskmodels.point2point;
 
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.Channel;
@@ -11,7 +11,7 @@ import org.junit.Test;
  * @version 1.0
  * @date 2020/12/18
  */
-public class ProducerTest {
+public class ProducerOfPoint2Point {
     @Test
     public void testSendMessage() throws Exception {
         // 通过工具类获取连接对象
@@ -23,11 +23,11 @@ public class ProducerTest {
         Channel channel = connection.createChannel();
 
         // 通道绑定对应的消息队列
-        // 参数1 : 队列名称，如果队列在rabbitmq中不存在，就自动创建
-        // 参数2 : 队列是否要持久化，配置true，mq重启后该队列依旧存在，不保证消息持久化。配置false，mq重启后删除该队列
-        // 参数3 : 前连接可用是否独占队列，配置true，该队列只允许当前连接可用，其他连接不可用。配置false，其他连接也可用
-        // 参数4 : 消费完成后，是否自动删除队列 true自动删除，false不自动删除。配置true，消费者与队列断开连接才删除
-        // 参数5 : 额外附加参数
+        // queue : 队列名称，如果队列在rabbitmq中不存在，就自动创建
+        // durable : 队列是否要持久化，配置true，mq重启后该队列依旧存在，不保证消息持久化。配置false，mq重启后删除该队列
+        // exclusive : 前连接可用是否独占队列，配置true，该队列只允许当前连接可用，其他连接不可用。配置false，其他连接也可用
+        // autoDelete : 消费完成后，是否自动删除队列 true自动删除，false不自动删除。配置true，消费者与队列断开连接才删除
+        // arguments : 额外附加参数
         channel.queueDeclare("hello", false, false, false, null);
 
         // 给指定队列发送消息
@@ -39,5 +39,6 @@ public class ProducerTest {
 
         // 关闭连接
         RabbaitMqUtil.closeChannelAndConnection(channel, connection);
+
     }
 }
