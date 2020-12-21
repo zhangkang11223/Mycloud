@@ -1,5 +1,6 @@
 package com.atzhangkang.springcloud.consumer;
 
+import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.*;
 import org.junit.Test;
 
@@ -17,21 +18,12 @@ public class Consumer {
     /**
      * consumer端一直消费消费者端发送过来的消息
      */
-    public static void main(String[] args) throws IOException, TimeoutException {
-        // 创建mq的连接工厂
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        // 设置连接rabbitmq的主机
-        connectionFactory.setHost("192.168.1.44");
-        // 设置端口号,rabbitmq做tcp通信的时候使用5672端口号
-        connectionFactory.setPort(5672);
-        // 设置连接那个虚拟主机
-        connectionFactory.setVirtualHost("/ems");
-        // 设置访问虚拟主机的用户名密码
-        connectionFactory.setUsername("zk");
-        connectionFactory.setPassword("123");
-
-        Connection connection = connectionFactory.newConnection();
-
+    public static void main(String[] args) throws Exception {
+        //通过工具类获取连接对象
+        Connection connection = RabbaitMqUtil.getConnection();
+        if (connection == null) {
+            throw new Exception("failed to get rabbitmq connection");
+        }
         // 获取连接中的通道对象
         Channel channel = connection.createChannel();
 
@@ -56,7 +48,6 @@ public class Consumer {
              * @param envelope 消息传递过程中信封
              * @param properties 消息传递过程中属性
              * @param body 消息队列中取出的消息
-             * @throws IOException
              */
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {

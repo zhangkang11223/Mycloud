@@ -1,5 +1,6 @@
 package com.atzhangkang.springcloud.producer;
 
+import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -15,21 +16,12 @@ import java.util.concurrent.TimeoutException;
  */
 public class ProviderTest {
     @Test
-    public void testSendMessage() throws IOException, TimeoutException {
-        // 创建mq的连接工厂
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        // 设置连接rabbitmq的主机
-        connectionFactory.setHost("192.168.1.44");
-        // 设置端口号,rabbitmq做tcp通信的时候使用5672端口号
-        connectionFactory.setPort(5672);
-        // 设置连接那个虚拟主机
-        connectionFactory.setVirtualHost("/ems");
-        // 设置访问虚拟主机的用户名密码
-        connectionFactory.setUsername("zk");
-        connectionFactory.setPassword("123");
-
-        Connection connection = connectionFactory.newConnection();
-
+    public void testSendMessage() throws Exception {
+        // 通过工具类获取连接对象
+        Connection connection = RabbaitMqUtil.getConnection();
+        if (connection == null) {
+            throw new Exception("failed to get rabbitmq connection");
+        }
         // 获取连接中的通道对象
         Channel channel = connection.createChannel();
 
@@ -46,12 +38,9 @@ public class ProviderTest {
         // 参数2 : 要发布消息的队列名称
         // 参数3 : 发布消息时的属性
         // 参数4 : 要发布的内容，数据类型是字节数组
-        channel.basicPublish("", "hello", null, "hello rabbitmq222".getBytes());
-
-        // 关闭通道
-        channel.close();
+        channel.basicPublish("", "hello", null, "hello 1112233".getBytes());
 
         // 关闭连接
-        connection.close();
+        RabbaitMqUtil.closeChannelAndConnection(channel, connection);
     }
 }
