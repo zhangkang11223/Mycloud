@@ -1,0 +1,6 @@
+server:
+  port: 6001  #rabbitmq模块
+
+spring:
+  application:
+    name: cloud-rabbitmq-service
