@@ -1,12 +1,9 @@
-package com.atzhangkang.springcloud.consumer;
+package com.atzhangkang.springcloud.models.point2point;
 
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.*;
-import org.junit.Test;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @author tule
