@@ -1,5 +1,6 @@
 package com.xxl.job.executor.service.jobhandler;
 
+import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.slf4j.Logger;
@@ -52,6 +53,12 @@ public class SampleXxlJob {
         // default success
     }
 
+    @XxlJob("myJobHandler")
+    public void myJobHandler() {
+        String param = XxlJobHelper.getJobParam();    // 获取参数
+        System.out.println("zhangkang ===========" + param);
+        XxlJobHelper.handleSuccess();                 // 设置任务结果
+    }
 
     /**
      * 2、分片广播任务
