@@ -31,7 +31,7 @@ public class ProducerOfPoint2Point {
         channel.queueDeclare("hello", false, false, false, null);
 
         // 给指定队列发送消息
-        // 参数1 : 交换机名称，因为点对点模式不需要交换机，直接发送消息。该参数为“”
+        // 参数1 : 交换机名称，因为点对点模式不需要交换机，直接发送消息。该参数为“”,使用rabbitmq提供的默认交换机
         // 参数2 : 要发布消息的队列名称
         // 参数3 : 发布消息时的属性，其中的MessageProperties.PERSISTENT_TEXT_PLAIN : 表示消息持久化到当前消息队列中
         // 参数4 : 要发布的内容，数据类型是字节数组
