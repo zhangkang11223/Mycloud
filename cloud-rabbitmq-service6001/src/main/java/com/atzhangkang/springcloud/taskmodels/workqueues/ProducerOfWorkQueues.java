@@ -7,6 +7,9 @@ import com.rabbitmq.client.Connection;
 import java.io.IOException;
 
 /**
+ *                 <- 消费者1
+ * 生产者  ->  队列
+ *                 <- 消费者2
  *
  * 一个生产者，多个消费者
  * Workqueue中的consumers 默认是轮循获取消息队列中的消息，可通过修改实现“按劳分配”

@@ -7,6 +7,8 @@ import com.rabbitmq.client.MessageProperties;
 import org.junit.Test;
 
 /**
+ * 生产者 ->  队列  <-  消费者
+ * 一个生产者对应一个消费者
  * @author tule
  * @version 1.0
  * @date 2020/12/18

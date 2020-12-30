@@ -7,6 +7,10 @@ import com.rabbitmq.client.Connection;
 import java.io.IOException;
 
 /**
+ *                   —>  队列1  <-  消费者1
+ * 生产者  —>  交换机
+ *                   ->  队列2  <-  消费者2
+ *
  * @author tule
  * @version 1.0
  * @date 2020/12/25

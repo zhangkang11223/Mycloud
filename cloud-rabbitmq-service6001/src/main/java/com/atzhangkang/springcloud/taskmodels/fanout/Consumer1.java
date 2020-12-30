@@ -3,7 +3,6 @@ package com.atzhangkang.springcloud.taskmodels.fanout;
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.DefaultConsumer;
 
 import java.io.IOException;
 
