@@ -18,9 +18,8 @@
             <version>${junit.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
-            <version>5.7.2</version>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit-test</artifactId>
         </dependency>
         <dependency>
             <groupId>com.atzhangkang.cloud</groupId>

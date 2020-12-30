@@ -4,3 +4,9 @@ server:
 spring:
   application:
     name: cloud-rabbitmq-service
+  rabbitmq:
+    host: 192.168.1.44
+    port: 5672
+    username: zk
+    password: 123
+    virtual-host: /ems
