@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.taskmodels.fanout;
+package com.atzhangkang.springcloud.basicmodels.fanout;
 
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.Channel;

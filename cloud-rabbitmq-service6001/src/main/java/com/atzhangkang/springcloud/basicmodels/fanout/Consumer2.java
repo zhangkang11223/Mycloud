@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.taskmodels.fanout;
+package com.atzhangkang.springcloud.basicmodels.fanout;
 
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.*;
@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
  * @version 1.0
  * @date 2020/12/25
  */
-public class Consumer3 {
+public class Consumer2 {
     public static void main(String[] args) throws IOException {
         //获取连接
         Connection connection = RabbaitMqUtil.getConnection();
@@ -31,7 +31,7 @@ public class Consumer3 {
         channel.basicConsume(queueName, true, new DefaultConsumer(channel){
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                System.out.println("消费者3 : " + new String(body, StandardCharsets.UTF_8));
+                System.out.println("消费者2 : " + new String(body, StandardCharsets.UTF_8));
             }
         });
 

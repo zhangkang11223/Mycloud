@@ -1,10 +1,8 @@
-package com.atzhangkang.springcloud.taskmodels.workqueues;
+package com.atzhangkang.springcloud.basicmodels.workqueues;
 
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-
-import java.io.IOException;
 
 /**
  *                 <- 消费者1

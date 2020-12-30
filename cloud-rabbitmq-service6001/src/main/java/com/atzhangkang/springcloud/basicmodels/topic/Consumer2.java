@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.taskmodels.topic;
+package com.atzhangkang.springcloud.basicmodels.topic;
 
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.*;

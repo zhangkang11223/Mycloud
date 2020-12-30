@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.taskmodels.point2point;
+package com.atzhangkang.springcloud.basicmodels.point2point;
 
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.Channel;

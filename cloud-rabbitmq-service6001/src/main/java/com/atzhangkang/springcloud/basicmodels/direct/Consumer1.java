@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.taskmodels.direct;
+package com.atzhangkang.springcloud.basicmodels.direct;
 
 import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
 import com.rabbitmq.client.*;
@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
  * @version 1.0
  * @date 2020/12/30
  */
-public class Consumer2 {
+public class Consumer1 {
     public static void main(String[] args) throws IOException {
         Connection connection = RabbaitMqUtil.getConnection();
         Channel channel = connection.createChannel();
@@ -22,16 +22,14 @@ public class Consumer2 {
         //创建临时队列
         String queue = channel.queueDeclare().getQueue();
 
-        //基于routeKey绑定交换机和队列,可基于业务规则绑定多个
+        //基于routeKey绑定交换机和队列
         channel.queueBind(queue, "logs_direct", "error");
-        channel.queueBind(queue, "logs_direct", "info");
-        channel.queueBind(queue, "logs_direct", "warning");
 
         //获取消费的消息
         channel.basicConsume(queue, true, new DefaultConsumer(channel){
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
-                System.out.println("消费者2 ：" + new String(body, StandardCharsets.UTF_8));
+                System.out.println("消费者1 ：" + new String(body, StandardCharsets.UTF_8));
             }
         });
     }
