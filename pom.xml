@@ -21,6 +21,8 @@
       <module>cloud-spring-test6699</module>
       <module>cloud-xxl-job</module>
       <module>cloud-rabbitmq-service6001</module>
+      <module>cloud-nacos-payment9001</module>
+      <module>cloud-nacos-payment9002</module>
   </modules>
 
   <!--统一管理jar包版本-->
