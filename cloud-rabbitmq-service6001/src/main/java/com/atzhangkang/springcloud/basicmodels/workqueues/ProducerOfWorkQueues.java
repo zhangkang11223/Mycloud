@@ -1,6 +1,6 @@
 package com.atzhangkang.springcloud.basicmodels.workqueues;
 
-import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
+import com.atzhangkang.springcloud.utils.RabbitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
@@ -17,7 +17,7 @@ import com.rabbitmq.client.Connection;
  */
 public class ProducerOfWorkQueues {
     public static void main(String[] args) throws Exception {
-        Connection connection = RabbaitMqUtil.getConnection();
+        Connection connection = RabbitMqUtil.getConnection();
         if (connection == null) {
             throw new Exception("failed to get rabbitmq connection");
         }
@@ -32,6 +32,6 @@ public class ProducerOfWorkQueues {
         }
 
         // 关闭资源
-        RabbaitMqUtil.closeChannelAndConnection(channel, connection);
+        RabbitMqUtil.closeChannelAndConnection(channel, connection);
     }
 }

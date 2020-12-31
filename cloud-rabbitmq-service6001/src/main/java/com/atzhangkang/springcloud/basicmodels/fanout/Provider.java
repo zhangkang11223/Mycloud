@@ -1,6 +1,6 @@
 package com.atzhangkang.springcloud.basicmodels.fanout;
 
-import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
+import com.atzhangkang.springcloud.utils.RabbitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
@@ -23,7 +23,7 @@ import java.io.IOException;
 public class Provider {
     public static void main(String[] args) throws IOException {
 
-        Connection connection = RabbaitMqUtil.getConnection();
+        Connection connection = RabbitMqUtil.getConnection();
         // 生产者通过通道把消息发送给交换机
         Channel channel = connection.createChannel();
 
@@ -37,7 +37,7 @@ public class Provider {
         //routingKey对于发布订阅模型是没作用的
         channel.basicPublish("logs","",null,"fanout message".getBytes());
 
-        RabbaitMqUtil.closeChannelAndConnection(channel, connection);
+        RabbitMqUtil.closeChannelAndConnection(channel, connection);
 
     }
 }

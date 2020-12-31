@@ -1,6 +1,6 @@
 package com.atzhangkang.springcloud.basicmodels.direct;
 
-import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
+import com.atzhangkang.springcloud.utils.RabbitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class Provider {
     public static void main(String[] args) throws IOException {
         //获取连接
-        Connection connection = RabbaitMqUtil.getConnection();
+        Connection connection = RabbitMqUtil.getConnection();
         //创建通道
         Channel channel = connection.createChannel();
 
@@ -37,6 +37,6 @@ public class Provider {
                 null, ("这是direct模型发布的基于routingKey : ["+routingKey+"] 发送的消息！").getBytes());
 
         //关闭资源
-        RabbaitMqUtil.closeChannelAndConnection(channel, connection);
+        RabbitMqUtil.closeChannelAndConnection(channel, connection);
     }
 }

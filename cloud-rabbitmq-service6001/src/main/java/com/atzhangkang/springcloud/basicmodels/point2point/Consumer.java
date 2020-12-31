@@ -1,6 +1,6 @@
 package com.atzhangkang.springcloud.basicmodels.point2point;
 
-import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
+import com.atzhangkang.springcloud.utils.RabbitMqUtil;
 import com.rabbitmq.client.*;
 
 import java.nio.charset.StandardCharsets;
@@ -17,7 +17,7 @@ public class Consumer {
      */
     public static void main(String[] args) throws Exception {
         //通过工具类获取连接对象
-        Connection connection = RabbaitMqUtil.getConnection();
+        Connection connection = RabbitMqUtil.getConnection();
         if (connection == null) {
             throw new Exception("failed to get rabbitmq connection");
         }

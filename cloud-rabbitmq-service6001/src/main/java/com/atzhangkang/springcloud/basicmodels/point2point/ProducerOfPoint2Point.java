@@ -1,6 +1,6 @@
 package com.atzhangkang.springcloud.basicmodels.point2point;
 
-import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
+import com.atzhangkang.springcloud.utils.RabbitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.MessageProperties;
@@ -17,7 +17,7 @@ public class ProducerOfPoint2Point {
     @Test
     public void testSendMessage() throws Exception {
         // 通过工具类获取连接对象
-        Connection connection = RabbaitMqUtil.getConnection();
+        Connection connection = RabbitMqUtil.getConnection();
         if (connection == null) {
             throw new Exception("failed to get rabbitmq connection");
         }
@@ -40,7 +40,7 @@ public class ProducerOfPoint2Point {
         channel.basicPublish("", "hello", MessageProperties.PERSISTENT_TEXT_PLAIN, "hello 1112233".getBytes());
 
         // 关闭连接
-        RabbaitMqUtil.closeChannelAndConnection(channel, connection);
+        RabbitMqUtil.closeChannelAndConnection(channel, connection);
 
     }
 }

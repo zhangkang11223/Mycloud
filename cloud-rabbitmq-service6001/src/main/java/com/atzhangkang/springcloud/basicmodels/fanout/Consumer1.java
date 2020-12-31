@@ -1,6 +1,6 @@
 package com.atzhangkang.springcloud.basicmodels.fanout;
 
-import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
+import com.atzhangkang.springcloud.utils.RabbitMqUtil;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 public class Consumer1 {
     public static void main(String[] args) throws IOException {
         //获取连接
-        Connection connection = RabbaitMqUtil.getConnection();
+        Connection connection = RabbitMqUtil.getConnection();
         Channel channel = connection.createChannel();
 
         //通道绑定交换机

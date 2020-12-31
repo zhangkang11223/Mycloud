@@ -1,6 +1,6 @@
 package com.atzhangkang.springcloud.basicmodels.workqueues;
 
-import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
+import com.atzhangkang.springcloud.utils.RabbitMqUtil;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class Consumer2 {
     public static void main(String[] args) throws Exception {
-        Connection connection = RabbaitMqUtil.getConnection();
+        Connection connection = RabbitMqUtil.getConnection();
         if (connection == null) {
             throw new Exception("failed to get rabbitmq connection");
         }

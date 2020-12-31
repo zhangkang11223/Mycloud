@@ -5,7 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -21,7 +23,7 @@ public class RabbitMQTest {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    //ponit2point: 点对点模型，例如：Hello World
+    //point2point: 点对点模型，例如：Hello World
     @Test
     public void testPoint2point() {
         rabbitTemplate.convertAndSend("hello", "Hello World!");

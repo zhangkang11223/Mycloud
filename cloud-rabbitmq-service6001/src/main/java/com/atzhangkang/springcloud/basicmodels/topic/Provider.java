@@ -1,6 +1,6 @@
 package com.atzhangkang.springcloud.basicmodels.topic;
 
-import com.atzhangkang.springcloud.utils.RabbaitMqUtil;
+import com.atzhangkang.springcloud.utils.RabbitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class Provider {
     public static void main(String[] args) throws IOException {
-        Connection connection = RabbaitMqUtil.getConnection();
+        Connection connection = RabbitMqUtil.getConnection();
         Channel channel = connection.createChannel();
 
         channel.exchangeDeclare("myTopic", "topic");
@@ -29,6 +29,6 @@ public class Provider {
         channel.basicPublish("myTopic", routingKey, null,
                 ("topic 动态路由模型, routingKey : [" +routingKey+"]").getBytes());
 
-        RabbaitMqUtil.closeChannelAndConnection(channel, connection);
+        RabbitMqUtil.closeChannelAndConnection(channel, connection);
     }
 }
