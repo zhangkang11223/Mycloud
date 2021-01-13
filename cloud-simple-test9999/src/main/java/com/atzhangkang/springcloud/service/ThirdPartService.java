@@ -36,7 +36,7 @@ public class ThirdPartService {
     private static final String BUSINESS_USERS_URL = "%s:%s/uumsapi/api/v2/appuser/%s/role/%s";
 
     /**
-     * 根据token和userName查询第三方接口
+     * 根据token和userName查询第三方GET接口
      * @param portalToken 第三方token
      * @param userName 用户名
      */
@@ -60,7 +60,12 @@ public class ThirdPartService {
         return Integer.parseInt(userId);
     }
 
-
+    /**
+     * 根据token, roleId, pageSize查询第三方POST接口
+     * @param roleId 角色Id
+     * @param portalToken 第三方服务的token
+     * @param pageSize 分页大小
+     */
     public String sendPostRequest(String roleId, String portalToken, Integer pageSize) throws Exception {
         // format: json格式的请求体body
         String format = String.format("{\"include\": true, \"pg\": {\"a\": true,\"i\": 1,\"n\": %s}}", pageSize);

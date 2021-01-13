@@ -31,7 +31,6 @@ public class CatchCallableExceptionService {
             }
             log.info(Thread.currentThread().getName() + " : try catch execute end!");
             throw new Exception("token expired");
-            // return Math.random();
         };
         // 以原子读写的对象引用变量
         AtomicReference<String> exceptionStr = new AtomicReference<>("");
@@ -46,8 +45,7 @@ public class CatchCallableExceptionService {
                 new ThreadPoolExecutor.AbortPolicy());
         for (int i = 0; i < 3; i++ ) {
             Future<Double> submit = singleThreadPool.submit(callable);
-            //get()会阻塞后续代码
-            //System.out.println(submit.get());
+            //System.out.println(submit.get());   get()会阻塞后续代码
         }
         // 正在运行的线程不会立即关闭，等待中的线程不会再执行
         singleThreadPool.shutdown();

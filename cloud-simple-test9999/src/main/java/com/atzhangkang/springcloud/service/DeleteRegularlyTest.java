@@ -20,14 +20,14 @@ import java.util.Locale;
  */
 @Slf4j
 @Component
-@ConditionalOnProperty(prefix = "timed.task", name = "open",havingValue = "true")
+@ConditionalOnProperty(havingValue = "true", prefix = "timed.task", name = "open")
 public class DeleteRegularlyTest {
     /**
-     * @ConditionalOnProperty可以对@Component和@Configuration注解进行开关操作，
+     * 注解@ConditionalOnProperty可以对@Component和@Configuration，进行开关操作，
      * 当havingValue的值与配置一样时，@Component和@Configuration注解生效。否则不生效
      * 只删除目标路径下的文件，不删除目标目录下的文件夹
-     * 秒 分 时 日 月 年， *表示每分钟，
-     * 0 0 0 0 * ? *
+     * 秒 分  时  日 月 年， *表示每分钟，
+     * 0  0  0   0  *  ? *
      */
     @Scheduled(cron = "0 * 14 4 12 ?")
     public void deleteRegularly() {
