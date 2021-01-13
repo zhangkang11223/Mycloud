@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.tests;
+package com.atzhangkang.springcloud.tests.generics.linked.stack;
 
 /**
  * @author tule

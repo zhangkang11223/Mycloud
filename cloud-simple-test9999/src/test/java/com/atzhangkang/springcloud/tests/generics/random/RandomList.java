@@ -1,4 +1,4 @@
-package com.atzhangkang.springcloud.tests;
+package com.atzhangkang.springcloud.tests.generics.random;
 
 import java.util.ArrayList;
 import java.util.Arrays;
