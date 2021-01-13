@@ -33,7 +33,8 @@ public class CatchCallableExceptionService {
             throw new Exception("token expired");
             // return Math.random();
         };
-        AtomicReference<String> exceptionStr = new AtomicReference<>(""); // 以原子读写的对象引用变量
+        // 以原子读写的对象引用变量
+        AtomicReference<String> exceptionStr = new AtomicReference<>("");
         ThreadFactoryBuilder myPool = new ThreadFactoryBuilder().setNamePrefix("myPool");
         myPool.setUncaughtExceptionHandler((Thread t, Throwable e) -> {
             exceptionStr.set(e.getMessage());

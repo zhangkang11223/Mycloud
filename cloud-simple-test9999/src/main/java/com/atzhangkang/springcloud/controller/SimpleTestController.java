@@ -2,10 +2,16 @@ package com.atzhangkang.springcloud.controller;
 
 import com.atzhangkang.springcloud.entities.CommonResult;
 import com.atzhangkang.springcloud.service.CatchCallableExceptionService;
+import com.atzhangkang.springcloud.service.HeaderService;
+import com.atzhangkang.springcloud.service.ThirdPartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -28,46 +34,55 @@ public class SimpleTestController {
     private String serverPort;
 
     /**
-     * 这里可以获取到request
+     * 获取到request
      */
     private final HttpServletRequest request;
 
     private final CatchCallableExceptionService simpleTestService;
 
+    private final HeaderService headerService;
 
+    private final ThirdPartService thirdPartService;
+
+    /**
+     * 获取端口号
+     */
     @GetMapping(value = "/getCurrentPort")
     public CommonResult<String> getCurrentPort() {
         return new CommonResult<>(200, "get current port success!", serverPort);
     }
 
+    /**
+     * 获取请求的Headers信息
+     */
     @GetMapping(value = "/getHeaderInfo")
     public CommonResult<String> getHeaderInfo() {
-        //******************获取cookies信息************************************
-        Cookie[] cookies = request.getCookies();
-        if(cookies != null && cookies.length > 0){
-            for (Cookie cookie : cookies){
-                System.out.println(cookie.getName() + " " + cookie.getValue());
-            }
-        }
-
-        //******************获取请求头(header)信息*****************************
-        Enumeration<String> headerNames = request.getHeaderNames();
-        // 判断是否还有下一个元素
-        while(headerNames.hasMoreElements()) {
-            // 获取headerNames集合中的请求头
-            String nextElement = headerNames.nextElement();
-            // 通过请求头得到请求内容
-            String header2 = request.getHeader(nextElement);
-            System.out.println("请求头=========={}" + nextElement + "VALUE:" + header2);
-        }
-
-        //******************获取请求头(header)信息*****************************
-        String token = request.getHeader("cookie");
-        System.out.println(token);
-
+        headerService.getHeaderInfo(request);
         return new CommonResult<>(200, "get header info  success!");
     }
 
+    /**
+     *  调用第三方get请求
+     */
+    @GetMapping(value = "/sendGetRequest")
+    public CommonResult<Integer> sendGetRequest(
+        @RequestParam( value = "userName") String userName,
+        @RequestParam(value = "portalToken") String portalToken) throws Exception {
+        Integer userId = thirdPartService.sendGetRequest(portalToken, userName);
+        return new CommonResult<>(200, "send request success!", userId);
+    }
+
+    /**
+     *  调用第三方post请求
+     */
+    @GetMapping(value = "/sendPostRequest")
+    public CommonResult<String> sendPostRequest(
+            @RequestParam( value = "userName") String userName,
+            @RequestParam(value = "portalToken") String portalToken,
+            @RequestParam(value = "pageSize") Integer pageSize) throws Exception {
+        String resultBody = thirdPartService.sendPostRequest(portalToken, userName, pageSize);
+        return new CommonResult<>(200, "send request success!", resultBody);
+    }
 
     /**
      * 测试线程池中捕获callable线程抛出的异常
